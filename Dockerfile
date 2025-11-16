@@ -10,6 +10,10 @@ WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Download models during build to prevent first-request timeout
+COPY download_models.py ./
+RUN python download_models.py
+
 # Copy server code
 COPY server.py ./
 
